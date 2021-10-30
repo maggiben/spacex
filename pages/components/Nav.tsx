@@ -22,7 +22,7 @@ export default function Nav() {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={6}>
               <InputGroup size="md">
-                <Input pr="12rem" placeholder="Mission name" borderRadius="0" />
+                <Input pr="12rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')}/>
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm"><SearchIcon /></Button>
                 </InputRightElement>
