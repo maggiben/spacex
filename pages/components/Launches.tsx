@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next"
 import { Grid, GridItem, Text } from "@chakra-ui/react"
-import { ssrGetLaunches, PageGetLaunchesComp } from "../generated/page"
+import { ssrGetLaunches, PageGetLaunchesComp } from "../../generated/page"
 import { withApollo } from "../hooks/withApollo"
 
 const Launches: PageGetLaunchesComp = (props) => {

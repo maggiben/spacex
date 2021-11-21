@@ -1,5 +1,7 @@
+import Link from 'next/link'
+
 const Logo = () => (
-  <a href="/" id="logo">
+  <Link href="/">
     <svg version="1.1" x="0px" y="0px" viewBox="0 0 400 50">
       <title>SpaceX Logo</title>
       <g>
@@ -29,7 +31,7 @@ const Logo = () => (
         <path d="M399,0.7c-80,4.6-117,38.8-125.3,46.9l-1.7,1.6h14.8C326.8,9.1,384.3,2,399,0.7L399,0.7z"></path>
       </g>
     </svg>
-  </a>
+  </Link>
 )
 
 export default Logo

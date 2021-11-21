@@ -2,7 +2,7 @@ overwrite: true
 schema: "https://api.spacex.land/graphql/"
 documents: "pages/**/*.graphql"
 generates:
-  pages/generated/graphql.tsx:
+  generated/graphql.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -14,7 +14,7 @@ generates:
           withComponent: false
           exportFragmentSpreadSubTypes: true
           documentMode: graphQLTag
-  pages/generated/page.tsx:
+  generated/page.tsx:
     config:
       documentMode: external
       importDocumentNodeExternallyFrom: ./graphql
