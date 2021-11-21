@@ -1,27 +1,31 @@
-import { ssrGetLaunches, PageGetLaunchesComp } from "../generated/page";
-import { withApollo } from "../hooks/withApollo";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next"
+import { Grid, GridItem, Text } from "@chakra-ui/react"
+import { ssrGetLaunches, PageGetLaunchesComp } from "../generated/page"
+import { withApollo } from "../hooks/withApollo"
 
 const Launches: PageGetLaunchesComp = (props) => {
-  console.log('props', props);
+  console.log('props', props?.data?.launchesPast);
   return (
-    <div>
+    <Grid>
       {
         props?.data?.launchesPast?.map((launch, index) => {
-          <div key={index}>{launch?.mission_name}</div>
+          return (
+            <GridItem key={index}>
+              <Text>{launch?.mission_name}</Text>
+            </GridItem>
+          )
         })
       }
-    </div>
+    </Grid>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  console.log('ctx', ctx);
   return await ssrGetLaunches.getServerPage({}, ctx);
-};
+}
 
 export default withApollo(ssrGetLaunches.withPage((arg) => {
   return { 
     variables: { limit: 10 },
   }
-})(Launches));
+})(Launches))
