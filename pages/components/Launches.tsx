@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { Grid, GridItem, Text } from '@chakra-ui/react'
 import { ssrGetLaunches, PageGetLaunchesComp } from '../../generated/page'
+import Launch from './Launch'
 import { withApollo } from '../../hooks/withApollo'
 
 const Launches: PageGetLaunchesComp = (props) => {
@@ -8,10 +9,11 @@ const Launches: PageGetLaunchesComp = (props) => {
   return (
     <Grid>
       {
-        props?.data?.launchesPast?.map((launch, index) => {
+        props?.data?.launchesPast?.map((launch) => {
+          // <Text>{launch?.mission_name}</Text>
           return (
-            <GridItem key={index}>
-              <Text>{launch?.mission_name}</Text>
+            <GridItem key={launch?.id}>
+              <Launch mission_name={launch?.mission_name} />
             </GridItem>
           )
         })
