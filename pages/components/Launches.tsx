@@ -7,13 +7,12 @@ import { withApollo } from '../../hooks/withApollo'
 const Launches: PageGetLaunchesComp = (props) => {
   console.log('props', props?.data?.launchesPast);
   return (
-    <Grid>
+    <Grid templateColumns="repeat(6, 1fr)" gap={2}>
       {
         props?.data?.launchesPast?.map((launch) => {
-          // <Text>{launch?.mission_name}</Text>
           return (
             <GridItem key={launch?.id}>
-              <Launch mission_name={launch?.mission_name} />
+              <Launch mission_name={launch?.mission_name} links={launch?.links} />
             </GridItem>
           )
         })
@@ -28,6 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 export default withApollo(ssrGetLaunches.withPage((arg) => {
   return { 
-    variables: { limit: 10 },
+    variables: { limit: 18 },
   }
 })(Launches))

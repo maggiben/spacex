@@ -8,14 +8,19 @@ import {
   Stack,
   Avatar,
   useColorModeValue,
+  AspectRatio,
 } from '@chakra-ui/react'
 
 interface ILaunch {
   mission_name: string | null | undefined;
-  mission_patch: string | null | undefined;
+  links: {
+    article_link?: string | null | undefined,
+    video_link?: string | null | undefined,
+    mission_patch?: string | null | undefined
+  };
 }
 
-const Launch = ({ mission_name, mission_patch }: ILaunch) => {
+const Launch = ({ mission_name, links }: ILaunch) => {
   return (
     <Center py={6}>
       <Box
@@ -27,25 +32,32 @@ const Launch = ({ mission_name, mission_patch }: ILaunch) => {
         p={6}
         overflow={'hidden'}>
         <Box
-          h={'210px'}
           bg={'gray.100'}
           mt={-6}
           mx={-6}
           mb={6}
           pos={'relative'}>
-          <Image
+          <AspectRatio maxH="180px" layout={'fill'}>
+            <iframe
+              title="naruto"
+              src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+              allowFullScreen
+            />
+          </AspectRatio>
+          {/*<Image
             src={
               'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
             }
             layout={'fill'}
-          />
+          />*/}
         </Box>
         <Stack>
           <Text
-            color={'green.500'}
+            color={'black.500'}
             textTransform={'uppercase'}
             fontWeight={800}
             fontSize={'sm'}
+            minH="60px"
             letterSpacing={1.1}>
             {mission_name}
           </Text>
@@ -57,14 +69,11 @@ const Launch = ({ mission_name, mission_patch }: ILaunch) => {
           </Heading>
           <Text color={'gray.500'}>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum.
           </Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
           <Avatar
-            src={mission_patch}
+            src={links?.mission_patch}
             alt={'Author'}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
