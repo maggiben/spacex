@@ -12,7 +12,7 @@ const Launches: PageGetLaunchesComp = (props) => {
         props?.data?.launchesPast?.map((launch) => {
           return (
             <GridItem key={launch?.id}>
-              <Launch mission_name={launch?.mission_name} links={launch?.links} />
+              <Launch mission_name={launch?.mission_name} links={launch?.links} rocket_name={launch?.rocket?.rocket_name}/>
             </GridItem>
           )
         })

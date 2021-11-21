@@ -10,17 +10,19 @@ import {
   useColorModeValue,
   AspectRatio,
 } from '@chakra-ui/react'
+import { getEmbedUrl } from '../../util/youtube'
 
 interface ILaunch {
   mission_name: string | null | undefined;
-  links: {
-    article_link?: string | null | undefined,
-    video_link?: string | null | undefined,
-    mission_patch?: string | null | undefined
-  };
+  links?: {
+    article_link?: string | null | undefined;
+    video_link?: string | null | undefined;
+    mission_patch?: string | null | undefined;
+  } | null | undefined;
+  rocket_name: string | null | undefined;
 }
 
-const Launch = ({ mission_name, links }: ILaunch) => {
+const Launch = ({ mission_name, links, rocket_name }: ILaunch) => {
   return (
     <Center py={6}>
       <Box
@@ -40,16 +42,10 @@ const Launch = ({ mission_name, links }: ILaunch) => {
           <AspectRatio maxH="180px" layout={'fill'}>
             <iframe
               title="naruto"
-              src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+              src={getEmbedUrl(links?.video_link)}
               allowFullScreen
             />
           </AspectRatio>
-          {/*<Image
-            src={
-              'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-            }
-            layout={'fill'}
-          />*/}
         </Box>
         <Stack>
           <Text
@@ -68,12 +64,12 @@ const Launch = ({ mission_name, links }: ILaunch) => {
             {}
           </Heading>
           <Text color={'gray.500'}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            {rocket_name}
           </Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
           <Avatar
-            src={links?.mission_patch}
+            src={`${links?.mission_patch ? links?.mission_patch : 'https://spaceflightnow.com' }`}
             alt={'Author'}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
