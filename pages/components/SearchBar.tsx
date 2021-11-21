@@ -1,4 +1,4 @@
-import { Flex, Input, Center, Text, Spacer, Button } from "@chakra-ui/react"
+import { Flex, Input, Center, Text, Spacer, Button } from '@chakra-ui/react'
 
 const SearchBar = () => {
   return (
