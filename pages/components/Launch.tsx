@@ -14,7 +14,7 @@ import { getEmbedUrl } from '../../util/youtube'
 
 interface ILaunch {
   mission_name: string | null | undefined;
-  site_name_long?: string | null | undefined;
+  site_name?: string | null | undefined;
   launch_date_local?: any | null | undefined;
   links?: {
     article_link?: string | null | undefined;
@@ -25,7 +25,7 @@ interface ILaunch {
   details?: string | null | undefined;
 }
 
-const Launch = ({ mission_name, launch_date_local, site_name_long, links, rocket_name, details }: ILaunch) => {
+const Launch = ({ mission_name, launch_date_local, site_name, links, rocket_name, details }: ILaunch) => {
   return (
     <Center py={6}>
       <Box
@@ -63,11 +63,11 @@ const Launch = ({ mission_name, launch_date_local, site_name_long, links, rocket
           </Text>
           <Heading
             color={useColorModeValue('gray.500', 'white')}
-            fontSize={'2xl'}
+            fontSize={'sm'}
             fontFamily={'body'}>
             {rocket_name}
           </Heading>
-          <Text color={'black.500'} noOfLines={3} >
+          <Text color={'black.500'} noOfLines={3} minH="6rem" >
             {details}
           </Text>
         </Stack>
@@ -77,7 +77,7 @@ const Launch = ({ mission_name, launch_date_local, site_name_long, links, rocket
             alt={'Mission Patch'}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>Achim Rolle</Text>
+            <Text fontWeight={600}>{site_name}</Text>
             <Text color={'gray.500'}>{new Date(launch_date_local).toLocaleDateString('en-US')}</Text>
           </Stack>
         </Stack>

@@ -14,7 +14,7 @@ const Launches: PageGetLaunchesComp = (props) => {
             <GridItem key={launch?.id}>
               <Launch
                 mission_name={launch?.mission_name}
-                site_name_long={launch?.launch_site?.site_name}
+                site_name={launch?.launch_site?.site_name}
                 launch_date_local={launch?.launch_date_local}
                 links={launch?.links}
                 rocket_name={launch?.rocket?.rocket_name}
