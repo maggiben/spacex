@@ -1321,21 +1321,22 @@ export type Uuid_Comparison_Exp = {
 
 export type GetLaunchesQueryVariables = Exact<{
   limit: Scalars['Int'];
+  offset?: InputMaybe<Scalars['Int']>;
   find?: InputMaybe<LaunchFind>;
 }>;
 
 
-export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', id?: string | null | undefined, mission_name?: string | null | undefined, launch_date_local?: any | null | undefined, launch_site?: { __typename?: 'LaunchSite', site_name_long?: string | null | undefined } | null | undefined, links?: { __typename?: 'LaunchLinks', article_link?: string | null | undefined, video_link?: string | null | undefined, mission_patch?: string | null | undefined } | null | undefined, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __typename?: 'Launch', id?: string | null | undefined, mission_name?: string | null | undefined, launch_date_local?: any | null | undefined, details?: string | null | undefined, launch_site?: { __typename?: 'LaunchSite', site_name?: string | null | undefined } | null | undefined, links?: { __typename?: 'LaunchLinks', article_link?: string | null | undefined, video_link?: string | null | undefined, mission_patch?: string | null | undefined } | null | undefined, rocket?: { __typename?: 'LaunchRocket', rocket_name?: string | null | undefined } | null | undefined } | null | undefined> | null | undefined };
 
 
 export const GetLaunchesDocument = gql`
-    query GetLaunches($limit: Int!, $find: LaunchFind) {
-  launchesPast(limit: $limit, find: $find) {
+    query GetLaunches($limit: Int!, $offset: Int, $find: LaunchFind) {
+  launchesPast(limit: $limit, offset: $offset, find: $find) {
     id
     mission_name
     launch_date_local
     launch_site {
-      site_name_long
+      site_name
     }
     links {
       article_link
@@ -1345,6 +1346,7 @@ export const GetLaunchesDocument = gql`
     rocket {
       rocket_name
     }
+    details
   }
 }
     `;

@@ -8,10 +8,10 @@ const SearchBar = () => {
       </Center>
       <Spacer />
       <Center w="100%" h="10">
-        <Input placeholder="Mission name" />
+        <Input placeholder="Mission name" borderRadius="0"/>
       </Center>
       <Center w="60px" h="10">
-        <Button>Search</Button>
+        <Button colorScheme="blue" borderRadius="0">Search</Button>
       </Center>
     </Flex>
   )
