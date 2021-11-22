@@ -1320,7 +1320,7 @@ export type Uuid_Comparison_Exp = {
 };
 
 export type GetLaunchesQueryVariables = Exact<{
-  limit: Scalars['Int'];
+  limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   find?: InputMaybe<LaunchFind>;
 }>;
@@ -1330,7 +1330,7 @@ export type GetLaunchesQuery = { __typename?: 'Query', launchesPast?: Array<{ __
 
 
 export const GetLaunchesDocument = gql`
-    query GetLaunches($limit: Int!, $offset: Int, $find: LaunchFind) {
+    query GetLaunches($limit: Int, $offset: Int, $find: LaunchFind) {
   launchesPast(limit: $limit, offset: $offset, find: $find) {
     id
     mission_name

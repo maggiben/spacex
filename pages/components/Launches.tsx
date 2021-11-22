@@ -37,11 +37,18 @@ const Launches: PageGetLaunchesComp = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return await ssrGetLaunches.getServerPage({}, ctx);
+  return await ssrGetLaunches.getServerPage({
+    variables: {
+      limit: 18,
+    },
+  }, ctx);
 }
 
 export default withApollo(ssrGetLaunches.withPage((arg) => {
   return { 
-    variables: { limit: 18 },
+    variables: {
+      limit: 18,
+      offset: 0,
+    },
   }
 })(Launches))

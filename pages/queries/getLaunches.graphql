@@ -1,4 +1,4 @@
-query GetLaunches($limit: Int!, $offset: Int, $find: LaunchFind) {
+query GetLaunches($limit: Int, $offset: Int, $find: LaunchFind) {
   launchesPast(limit: $limit, offset: $offset, find: $find) {
     id
     mission_name

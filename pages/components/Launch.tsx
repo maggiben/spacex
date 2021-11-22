@@ -77,7 +77,7 @@ const Launch = ({ mission_name, launch_date_local, site_name, links, rocket_name
             alt={'Mission Patch'}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>{site_name}</Text>
+            <Text fontWeight={600} noOfLines={1}>{site_name}</Text>
             <Text color={'gray.500'}>{new Date(launch_date_local).toLocaleDateString('en-US')}</Text>
           </Stack>
         </Stack>
