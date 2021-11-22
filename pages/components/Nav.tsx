@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
   Input,
   InputGroup,
@@ -10,8 +11,19 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon, SearchIcon } from '@chakra-ui/icons'
+import { ssrGetLaunches, PageGetLaunchesComp } from '../../generated/page'
 
 export default function Nav() {
+  const content = ssrGetLaunches.usePage();
+  const [find, setFind] = useState('');
+
+  const handleClick = () => {
+    setFind('Crew-1')
+  }
+
+  useEffect(() => {
+  }, [find])
+
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
@@ -24,7 +36,7 @@ export default function Nav() {
               <InputGroup size="md">
                 <Input pr="12rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')}/>
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm"><SearchIcon /></Button>
+                  <Button h="1.75rem" size="sm" onClick={handleClick}><SearchIcon /></Button>
                 </InputRightElement>
               </InputGroup>
               <Button onClick={toggleColorMode}>

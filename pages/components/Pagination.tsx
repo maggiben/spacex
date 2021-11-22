@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next'
 import { Button, Flex, Box, Spacer } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
@@ -21,17 +21,9 @@ const Pagination = () => {
     content.fetchMore({
       variables: {
         limit: 10,
-      },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult || fetchMoreResult?.launchesPast?.length === 0) {
-          return previousResult;
-        }
-        return { 
-          launchesPast: fetchMoreResult?.launchesPast
-        }
+        offset
       },
     })
-    content.refetch()
   }, [offset])
 
   return (
@@ -47,20 +39,20 @@ const Pagination = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  console.log('ctx', ctx)
-  return await ssrGetLaunches.getServerPage({
-    variables: {
-      limit: 5,
-    },
-  }, ctx);
-}
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   console.log('ctx', ctx)
+//   return await ssrGetLaunches.getServerPage({
+//     variables: {
+//       limit: 5,
+//     },
+//   }, ctx);
+// }
 
-export default withApollo(ssrGetLaunches.withPage((arg) => {
-  console.log('arg', arg);
-  return { 
-    variables: { limit: 18 },
-  }
-})(Pagination))
+// export default withApollo(ssrGetLaunches.withPage((arg) => {
+//   console.log('arg', arg);
+//   return { 
+//     variables: { limit: 18 },
+//   }
+// })(Pagination))
 
-// export default Pagination
+export default Pagination
