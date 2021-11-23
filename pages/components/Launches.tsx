@@ -11,6 +11,7 @@ const Launches: PageGetLaunchesComp = (props) => {
       <Spinner />
     )
   }
+
   return (
     <>
       <Grid templateColumns="repeat(6, 1fr)" gap={2}>
@@ -37,7 +38,12 @@ const Launches: PageGetLaunchesComp = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return await ssrGetLaunches.getServerPage({}, ctx);
+  return await ssrGetLaunches.getServerPage({
+    variables: {
+      limit: 18,
+      offset: 0,
+    },
+  }, ctx);
 }
 
 export default withApollo(ssrGetLaunches.withPage((arg) => {
