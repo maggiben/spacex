@@ -1,3 +1,4 @@
+import React, { useState, ChangeEvent, ClipboardEventHandler, KeyboardEventHandler, SyntheticEvent } from 'react'
 import {
   Input,
   InputGroup,
@@ -10,9 +11,53 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon, SearchIcon } from '@chakra-ui/icons'
+import { ssrGetLaunches } from '../../generated/page'
 
-export default function Nav() {
-  const { colorMode, toggleColorMode } = useColorMode();
+const Nav = () => {
+  const { colorMode, toggleColorMode } = useColorMode()
+  const [ search, setSearch ] = useState('')
+  const { fetchMore } = ssrGetLaunches.usePage((arg) => {
+    return {
+      variables: {
+        limit: 18,
+        offset: 0,
+        find: { mission_name: '' }
+      },
+    }
+  });
+  
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)
+  const handlePaste = (event: ClipboardEventHandler<HTMLInputElement>) => {
+    // console.log(event.clipboardData.getData('Text'));
+    // const text = event.clipboardData.getData('Text')
+    // setSearch(text)
+  }
+
+  const handleKeyPress = (event: SyntheticEvent<HTMLInputElement>) => {
+    console.log('key:', event.key)
+    // if (event.key === 'Enter') {
+      // setSearch(event.target.value)
+    // }
+  }
+
+  const handleClick = () => {
+    fetchMore({
+      variables: {
+        limit: 18,
+        offset: 0,
+        find: { mission_name: search }
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult || fetchMoreResult?.launchesPast?.length === 0) {
+          return previousResult;
+        }
+        return { 
+          launchesPast: fetchMoreResult?.launchesPast
+        }
+      },
+    })
+  }
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -22,9 +67,9 @@ export default function Nav() {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={6}>
               <InputGroup size="md">
-                <Input pr="12rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')}/>
+                <Input pr="4.5rem" width="22rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')} onChange={handleChange} onPaste={handlePaste as SyntheticEvent<HTMLInputElement>} onkeypress={handleKeyPress}/>
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm"><SearchIcon /></Button>
+                  <Button h="1.75rem" size="sm" onClick={handleClick}><SearchIcon /></Button>
                 </InputRightElement>
               </InputGroup>
               <Button onClick={toggleColorMode}>
@@ -37,3 +82,5 @@ export default function Nav() {
     </>
   )
 }
+
+export default Nav

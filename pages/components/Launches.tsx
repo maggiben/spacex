@@ -1,7 +1,5 @@
-import { GetServerSideProps } from 'next'
 import { Grid, GridItem, Spinner } from '@chakra-ui/react'
-import { withApollo } from '../../hooks/withApollo'
-import { ssrGetLaunches, PageGetLaunchesComp } from '../../generated/page'
+import { PageGetLaunchesComp } from '../../generated/page'
 import Launch from './Launch'
 import Pagination from './Pagination'
 
@@ -37,20 +35,5 @@ const Launches: PageGetLaunchesComp = (props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return await ssrGetLaunches.getServerPage({
-    variables: {
-      limit: 18,
-      offset: 0,
-    },
-  }, ctx);
-}
+export default Launches
 
-export default withApollo(ssrGetLaunches.withPage((arg) => {
-  return { 
-    variables: {
-      limit: 18,
-      offset: 0,
-    },
-  }
-})(Launches))

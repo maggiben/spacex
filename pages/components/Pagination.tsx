@@ -11,6 +11,7 @@ const Pagination = () => {
       variables: {
         limit: 18,
         offset: 0,
+        find: { mission_name: '' }
       },
     }
   });
@@ -28,6 +29,7 @@ const Pagination = () => {
       variables: {
         limit: 18,
         offset,
+        find: { mission_name: '' }
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult || fetchMoreResult?.launchesPast?.length === 0) {
@@ -52,32 +54,5 @@ const Pagination = () => {
     </Flex>
   )
 }
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   console.log('ctx', ctx)
-//   return await ssrGetLaunches.getServerPage({
-//     variables: {
-//       limit: 5,
-//     },
-//   }, ctx);
-// }
-
-// export default withApollo(ssrGetLaunches.withPage((arg) => {
-//   console.log('arg', arg);
-//   return { 
-//     variables: { limit: 18 },
-//   }
-// })(Pagination))
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   return await ssrGetLaunches.getServerPage({
-//     variables: {
-//       limit: 5,
-//       offset: 10,
-//     },
-//   }, ctx);
-// };
-
-// export default withApollo(Pagination);
 
 export default Pagination
