@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Flex, Box, Spacer } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import { ssrGetLaunches } from '../../generated/page'
+import { ssrGetLaunches } from '../generated/page'
 
 
 const Pagination = () => {
   const [ offset, setOffset ] = useState(0)
-  const { fetchMore } = ssrGetLaunches.usePage((arg) => {
+  const { fetchMore } = ssrGetLaunches.usePage(() => {
     return {
       variables: {
         limit: 18,

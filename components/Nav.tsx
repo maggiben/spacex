@@ -11,7 +11,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon, SearchIcon } from '@chakra-ui/icons'
-import { ssrGetLaunches } from '../../generated/page'
+import { ssrGetLaunches } from '../generated/page'
 
 const Nav = () => {
   const { colorMode, toggleColorMode } = useColorMode()

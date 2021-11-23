@@ -1,12 +1,15 @@
-import { SimpleGrid, Spinner, Box } from '@chakra-ui/react'
-import { PageGetLaunchesComp } from '../../generated/page'
+import { SimpleGrid, Spinner, Box, Center } from '@chakra-ui/react'
+import { PageGetLaunchesComp } from '../generated/page'
 import Launch from './Launch'
 import Pagination from './Pagination'
+import styles from '../styles/Home.module.css'
 
 const Launches: PageGetLaunchesComp = (props) => {
   if (!props?.data?.launchesPast) {
     return (
-      <Spinner />
+        <Center>
+          <Spinner />
+        </Center>
     )
   }
 

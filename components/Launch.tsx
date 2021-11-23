@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   AspectRatio,
 } from '@chakra-ui/react'
-import { getEmbedUrl } from '../../util/youtube'
+import { getEmbedUrl } from '../util/youtube'
 
 interface ILaunch {
   mission_name: string | null | undefined;
