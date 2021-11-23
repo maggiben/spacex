@@ -40,7 +40,7 @@ const Pagination = () => {
         }
       },
     })
-  }, [offset])
+  }, [offset, fetchMore])
 
   return (
     <Flex>
