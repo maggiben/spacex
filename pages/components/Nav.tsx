@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, ClipboardEventHandler, KeyboardEventHandler, SyntheticEvent } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import {
   Input,
   InputGroup,
@@ -26,18 +26,13 @@ const Nav = () => {
     }
   });
   
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)
-  const handlePaste = (event: ClipboardEventHandler<HTMLInputElement>) => {
-    // console.log(event.clipboardData.getData('Text'));
-    // const text = event.clipboardData.getData('Text')
-    // setSearch(text)
-  }
-
-  const handleKeyPress = (event: SyntheticEvent<HTMLInputElement>) => {
-    console.log('key:', event.key)
-    // if (event.key === 'Enter') {
-      // setSearch(event.target.value)
-    // }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => setSearch(event.currentTarget.value)
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      setSearch(event.currentTarget.value)
+      handleClick()
+    }
   }
 
   const handleClick = () => {
@@ -67,7 +62,7 @@ const Nav = () => {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={6}>
               <InputGroup size="md">
-                <Input pr="4.5rem" width="22rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')} onChange={handleChange} onPaste={handlePaste as SyntheticEvent<HTMLInputElement>} onkeypress={handleKeyPress}/>
+                <Input pr="4.5rem" width="22rem" placeholder="Mission name" borderRadius="0" bg={useColorModeValue('white.500', 'gray.900')} onChange={handleChange} onPaste={handlePaste} onKeyPress={handleKeyPress}/>
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}><SearchIcon /></Button>
                 </InputRightElement>
