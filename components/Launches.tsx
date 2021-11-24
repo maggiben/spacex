@@ -1,23 +1,25 @@
-import { GetServerSideProps } from 'next'
-import { Grid, GridItem, Spinner } from '@chakra-ui/react'
-import { withApollo } from '../../hooks/withApollo'
-import { ssrGetLaunches, PageGetLaunchesComp } from '../../generated/page'
+import { SimpleGrid, Spinner, Box, Center } from '@chakra-ui/react'
+import { PageGetLaunchesComp } from '../generated/page'
 import Launch from './Launch'
 import Pagination from './Pagination'
+import styles from '../styles/Home.module.css'
 
 const Launches: PageGetLaunchesComp = (props) => {
   if (!props?.data?.launchesPast) {
     return (
-      <Spinner />
+        <Center>
+          <Spinner />
+        </Center>
     )
   }
+
   return (
     <>
-      <Grid templateColumns="repeat(6, 1fr)" gap={2}>
+      <SimpleGrid minChildWidth="200px" columns={6} spacing="40px" gap={2}>
         {
           props?.data?.launchesPast?.map((launch) => {
             return (
-              <GridItem key={launch?.id}>
+              <Box key={launch?.id}>
                 <Launch
                   mission_name={launch?.mission_name}
                   site_name={launch?.launch_site?.site_name}
@@ -26,25 +28,15 @@ const Launches: PageGetLaunchesComp = (props) => {
                   rocket_name={launch?.rocket?.rocket_name}
                   details={launch?.details}
                 />
-              </GridItem>
+              </Box>
             )
           })
         }
-      </Grid>
+      </SimpleGrid>
       <Pagination />
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return await ssrGetLaunches.getServerPage({}, ctx);
-}
+export default Launches
 
-export default withApollo(ssrGetLaunches.withPage((arg) => {
-  return { 
-    variables: {
-      limit: 18,
-      offset: 0,
-    },
-  }
-})(Launches))

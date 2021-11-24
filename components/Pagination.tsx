@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { GetServerSideProps } from 'next'
+import React, { useState, useEffect } from 'react'
 import { Button, Flex, Box, Spacer } from '@chakra-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import { ssrGetLaunches, PageGetLaunchesComp } from '../../generated/page'
-import { withApollo } from '../../hooks/withApollo'
+import { ssrGetLaunches } from '../generated/page'
+
 
 const Pagination = () => {
-  const content = ssrGetLaunches.usePage();
-  const [offset, setOffset] = useState(0)
-
+  const [ offset, setOffset ] = useState(0)
+  const { fetchMore } = ssrGetLaunches.usePage(() => {
+    return {
+      variables: {
+        limit: 18,
+        offset: 0,
+        find: { mission_name: '' }
+      },
+    }
+  });
+  
   const handleClick = (advance: boolean) => {
     if (!advance && offset > 0) {
       setOffset(offset - 10)
@@ -18,9 +25,11 @@ const Pagination = () => {
   }
 
   useEffect(() => {
-    content.fetchMore({
+    fetchMore({
       variables: {
-        limit: 10,
+        limit: 18,
+        offset,
+        find: { mission_name: '' }
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult || fetchMoreResult?.launchesPast?.length === 0) {
@@ -31,8 +40,7 @@ const Pagination = () => {
         }
       },
     })
-    content.refetch()
-  }, [offset])
+  }, [offset, fetchMore])
 
   return (
     <Flex>
@@ -47,20 +55,4 @@ const Pagination = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  console.log('ctx', ctx)
-  return await ssrGetLaunches.getServerPage({
-    variables: {
-      limit: 5,
-    },
-  }, ctx);
-}
-
-export default withApollo(ssrGetLaunches.withPage((arg) => {
-  console.log('arg', arg);
-  return { 
-    variables: { limit: 18 },
-  }
-})(Pagination))
-
-// export default Pagination
+export default Pagination

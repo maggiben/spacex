@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const Logo = () => (
-  <Link href="/">
+  <Link href="/" passHref>
     <svg version="1.1" x="0px" y="0px" viewBox="0 0 400 50">
       <title>SpaceX Logo</title>
       <g>
